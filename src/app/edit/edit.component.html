@@ -1,0 +1,44 @@
+<p-dialog
+  header="Edit Employee"
+  [style]="{ width: '450px' }"
+  styleclass="p-fluid"
+  [(visible)]="display"
+  [modal]="true"
+  [closable]="true"
+  [responsive]="true"
+>
+  <form [formGroup]="editEmployeeForm" (ngSubmit)="onEdit()">
+      <div class="p-field">
+        <label for="FirstName">First Name</label>
+        <input id="FirstName" pInputText formControlName="FirstName"  />
+      </div>
+ 
+      <div class="p-field">
+        <label for="LastName">Last Name</label>
+        <input id="LastName" pInputText formControlName="LastName" />
+      </div>
+ 
+      <div class="p-field">
+        <label for="City">City</label>
+        <input id="City" pInputText formControlName="City"  />
+      </div>
+   
+ 
+    <p-footer>
+      <p-button
+        type="submit"
+        label="Save"
+        [rounded]="true"
+        severity="info"
+      />&nbsp;&nbsp;
+      <p-button
+        type="button"
+        label="Cancel"
+        [rounded]="true"
+        severity="danger"
+        (click)="onCancel()"
+      />
+    </p-footer>
+  </form>
+</p-dialog>
+ 

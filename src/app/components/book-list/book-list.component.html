@@ -1,26 +1,122 @@
-
 <div>
+  <p-button 
+          severity="success" 
+          label="New" 
+          icon="pi pi-plus" 
+          class="mr-2" 
+          (onClick)="showDialog()"
+         />
   <table>
-      <thead>
-          <tr>
-              <th>Id</th>
-              <th>Book Name</th>
-              <th>Author Name</th>
-              <th>Book Type</th>
-              <th>Quantity</th>
-          </tr>
-      </thead>
-      <tbody>
-          @for(data of books; track data.BookID){
-              <tr>
-                  <th>{{data.BookID}}</th>
-                  <td>{{data.BookName}}</td>
-                  <td>{{data.AuthorName}}</td>
-                  <td>{{data.BookType}}</td>
-                  <td>{{data.Quantity}}</td>
-              </tr>
-          }
-      </tbody>
+        
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>City</th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(data of data; track data.EmployeeID){
+      <tr>
+        <th>{{data.EmployeeID}}</th>
+        <td>{{data.FirstName}}</td>
+        <td>{{data.LastName}}</td>
+        <td>{{data.City}}</td>
+        <td>
+          <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true"
+            severity="success" (onClick)="editEmployee(data)
+            " />&nbsp;&nbsp;
+          <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteDisplay(data.EmployeeID)" [rounded]="true" [outlined]="true" />
+        </td>
+      </tr>
+
+      }
+    </tbody>
 
   </table>
 </div>
+
+<!-- <div> 
+  <form (ngSubmit)="onSubmit()">
+  <div class="flex flex-column gap-2">
+    <label for="EmployeeID">Employee ID:</label>&nbsp;&nbsp;
+    <input pInputText type="number" id="EmployeeID" [(ngModel)]="newEmployee.EmployeeID" name="EmployeeID" required>
+  </div>
+  &nbsp;&nbsp;
+ 
+  <div class="flex flex-column gap-2">
+    <label for="FirstName">First Name:</label>&nbsp;&nbsp;
+    <input pInputText type="text" id="FirstName" [(ngModel)]="newEmployee.FirstName" name="FirstName" required>
+  </div>
+  &nbsp;&nbsp;
+ 
+  <div class="flex flex-column gap-2">
+    <label for="LastName">Last Name :</label>&nbsp;&nbsp;
+    <input pInputText type="text" id="LastName" [(ngModel)]="newEmployee.LastName" name="LastName" required>
+  </div>
+  &nbsp;&nbsp;
+ 
+  <div class="flex flex-column gap-2">
+    <label for="City">City:</label>&nbsp;&nbsp;
+    <input pInputText type="text" id="City" [(ngModel)]="newEmployee.City" name="City" required>
+  </div>
+  &nbsp;&nbsp;
+ 
+  <p-button type="submit" label="Add Employee" />
+</form>
+ 
+</div> -->
+ 
+<app-edit  [(display)]="displayDialog"
+[employee]="selectedEmployee"
+(onClose)="handleDialogClose($event)">
+ 
+</app-edit>
+ 
+<p-dialog
+  header="Add New Employee"
+  [style]="{ width: '450px' }"
+  styleclass="p-fluid"
+  [(visible)]="dialogDisplay"
+  [modal]="true"
+  [closable]="false"
+  (onHide)="onDialogHide()"
+  [responsive]="true"
+>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label for="EmployeeID">Employee ID: </label>
+      <input id="EmployeeID" pInputText formControlName="EmployeeID"  type="number"/>
+    </div>
+    <div class="p-field">
+      <label for="FirstName">First Name: </label>
+      <input id="FirstName" pInputText formControlName="FirstName" type="text"/>
+    </div>
+    <div class="p-field">
+      <label for="LastName">Last Name: </label>
+      <input id="LastName" pInputText formControlName="LastName" type="text" />
+    </div>
+    <div class="p-field">
+      <label for="City">City: </label>
+      <input id="City" pInputText formControlName="City" type="text" />
+    </div>
+    <p-footer>
+      <p-button
+        type="submit"
+        label="Save"
+        [rounded]="true"
+        severity="info"
+      />&nbsp;&nbsp;
+      <p-button
+        type="button"
+        label="Cancel"
+        [rounded]="true"
+        severity="danger"
+        (onClick)="onDialogHide()"
+      />
+    </p-footer>
+  </form>
+</p-dialog>
+ 
