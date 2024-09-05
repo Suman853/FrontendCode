@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { BookService } from '../services/book.service';
-import { Employee } from '../employee';
+import { Book } from '../book';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,26 +17,26 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class EditComponent {
   @Input() display: boolean = false;
-  @Input() employee!: Employee; // The book to be edited
+  @Input() book!: Book; // The book to be edited
   @Output() onClose = new EventEmitter<boolean>();
   @Output() displayChange = new EventEmitter<boolean>();
   editEmployeeForm: FormGroup;
  
   constructor(private fb: FormBuilder, private bookService: BookService) {
     this.editEmployeeForm = this.fb.group({
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
-      City: ['', Validators.required]
+      BookName: ['', Validators.required],
+      AuthorName: ['', Validators.required],
+      BookType: ['', Validators.required]
     });
   }
   ngOnChanges(): void {
-    if (this.employee) {
-      this.editEmployeeForm.patchValue(this.employee);
+    if (this.book) {
+      this.editEmployeeForm.patchValue(this.book);
     }
   }
   onEdit(): void {
     if (this.editEmployeeForm.valid) {
-      this.bookService.editEmployee(this.employee.EmployeeID, this.editEmployeeForm.value).subscribe({
+      this.bookService.editBook(this.book.BookID, this.editEmployeeForm.value).subscribe({
         next: () => {
           // Handle successful update
           this.onClose.emit(true);

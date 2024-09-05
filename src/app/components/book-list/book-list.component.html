@@ -10,25 +10,25 @@
         
     <thead>
       <tr>
-        <th>Id</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>City</th>
+        <th>BookId</th>
+        <th>Book Name</th>
+        <th>Author Name</th>
+        <th>Book Type</th>
         <th> </th>
       </tr>
     </thead>
     <tbody>
-      @for(data of data; track data.EmployeeID){
+      @for(data of data; track data.BookID){
       <tr>
-        <th>{{data.EmployeeID}}</th>
-        <td>{{data.FirstName}}</td>
-        <td>{{data.LastName}}</td>
-        <td>{{data.City}}</td>
+        <th>{{data.BookID}}</th>
+        <td>{{data.BookName}}</td>
+        <td>{{data.AuthorName}}</td>
+        <td>{{data.BookType}}</td>
         <td>
           <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true"
-            severity="success" (onClick)="editEmployee(data)
+            severity="success" (onClick)="editBook(data)
             " />&nbsp;&nbsp;
-          <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteDisplay(data.EmployeeID)" [rounded]="true" [outlined]="true" />
+          <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteDisplay(data.BookID)" [rounded]="true" [outlined]="true" />
         </td>
       </tr>
 
@@ -70,13 +70,13 @@
 </div> -->
  
 <app-edit  [(display)]="displayDialog"
-[employee]="selectedEmployee"
+[book]="selectedBook"
 (onClose)="handleDialogClose($event)">
  
 </app-edit>
  
 <p-dialog
-  header="Add New Employee"
+  header="Add New Book"
   [style]="{ width: '450px' }"
   styleclass="p-fluid"
   [(visible)]="dialogDisplay"
@@ -87,20 +87,20 @@
 >
   <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
     <div class="p-field">
-      <label for="EmployeeID">Employee ID: </label>
-      <input id="EmployeeID" pInputText formControlName="EmployeeID"  type="number"/>
+      <label for="BookID">Book ID: </label>
+      <input id="BookID" pInputText formControlName="BookID"  type="number"/>
     </div>
     <div class="p-field">
-      <label for="FirstName">First Name: </label>
-      <input id="FirstName" pInputText formControlName="FirstName" type="text"/>
+      <label for="BookName">Book Name: </label>
+      <input id="BookName" pInputText formControlName="BookName" type="text"/>
     </div>
     <div class="p-field">
-      <label for="LastName">Last Name: </label>
-      <input id="LastName" pInputText formControlName="LastName" type="text" />
+      <label for="AuthorName">Author Name: </label>
+      <input id="AuthorName" pInputText formControlName="AuthorName" type="text" />
     </div>
     <div class="p-field">
-      <label for="City">City: </label>
-      <input id="City" pInputText formControlName="City" type="text" />
+      <label for="BookType">Book Type: </label>
+      <input id="BookType" pInputText formControlName="BookType" type="text" />
     </div>
     <p-footer>
       <p-button

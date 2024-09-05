@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employee } from '../employee';
+import { Book } from '../book';
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +14,22 @@ export class BookService {
 
   // 
   // Fetch all employees
-  getEmployees(){
+  getBooks(){
     return this.http.get(`${this.apiUrl}`);
   }
 
   // Add a new employee
-  addEmployee(employee: Employee): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/add-Employee`, employee);
+  addBook(book: Book): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add-Book`, book);
   }
 
   // Edit an existing employee
-  editEmployee(EmployeeID: number, employee: Employee): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/edit-Employee/${EmployeeID}`, employee);
+  editBook(BookID: number, book: Book): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/edit-Book/${BookID}`, book);
   }
 
   // Delete an employee
-  deleteEmployee(EmployeeID: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete-Employee/${EmployeeID}`);
+  deleteBook(BookID: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/delete-Book/${BookID}`);
   }
 }

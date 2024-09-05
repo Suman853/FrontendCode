@@ -1,5 +1,5 @@
 <p-dialog
-  header="Edit Employee"
+  header="Edit Book"
   [style]="{ width: '450px' }"
   styleclass="p-fluid"
   [(visible)]="display"
@@ -9,18 +9,18 @@
 >
   <form [formGroup]="editEmployeeForm" (ngSubmit)="onEdit()">
       <div class="p-field">
-        <label for="FirstName">First Name</label>
-        <input id="FirstName" pInputText formControlName="FirstName"  />
+        <label for="BookName">Book Name</label>
+        <input id="BookName" pInputText formControlName="BookName"  />
       </div>
  
       <div class="p-field">
-        <label for="LastName">Last Name</label>
-        <input id="LastName" pInputText formControlName="LastName" />
+        <label for="AuthorName">Author Name</label>
+        <input id="AuthorName" pInputText formControlName="AuthorName" />
       </div>
  
       <div class="p-field">
-        <label for="City">City</label>
-        <input id="City" pInputText formControlName="City"  />
+        <label for="BookType">Book Type</label>
+        <input id="BookType" pInputText formControlName="BookType"  />
       </div>
    
  

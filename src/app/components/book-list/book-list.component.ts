@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { BookService } from '../../services/book.service';
-import { Employee } from '../../employee';
+import { Book } from '../../book';
 import { EditComponent } from '../../edit/edit.component';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators }f
 export class BookListComponent implements OnInit {
   private bookService = inject(BookService)
   displayDialog: boolean = false;
-  selectedEmployee!:Employee;
+  selectedBook!:Book;
   employeeForm:FormGroup;
   dialogDisplay: boolean = false;
 
@@ -32,13 +32,13 @@ export class BookListComponent implements OnInit {
 //   City: '',
 // };
   data: any[]=[];
-  employees: Employee[] = [];
+  books: Book[] = []; //your list of books
   constructor(private fb: FormBuilder){
     this.employeeForm = this.fb.group({
-      EmployeeID: ['', Validators.required],
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
-      City: ['', Validators.required]
+      BookID: ['', Validators.required],
+      BookName: ['', Validators.required],
+      AuthorName: ['', Validators.required],
+      BookType: ['', Validators.required]
     });
   }
   showDialog(): void {
@@ -54,7 +54,7 @@ export class BookListComponent implements OnInit {
     this.fetchData();
   }
   fetchData(){
-    this.bookService.getEmployees().subscribe({
+    this.bookService.getBooks().subscribe({
       next: (displays:any)=>{
         this.data = displays;
         console.log('Data Fetched successfully');
@@ -63,8 +63,8 @@ export class BookListComponent implements OnInit {
     });
   }
 
-  deleteDisplay(EmployeeID: number) {
-    this.bookService.deleteEmployee(EmployeeID).subscribe(() => {
+  deleteDisplay(BookID: number) {
+    this.bookService.deleteBook(BookID).subscribe(() => {
       this.fetchData(); // Refresh the book list after deleting
       console.log('Data deleted successfully');
     });
@@ -72,9 +72,9 @@ export class BookListComponent implements OnInit {
  
   onSubmit(): void {
     if (this.employeeForm.valid) {
-      this.bookService.addEmployee(this.employeeForm.value).subscribe({
+      this.bookService.addBook(this.employeeForm.value).subscribe({
         next: (response) => {
-          console.log('Employee added successfully', response);
+          console.log('Book added successfully', response);
           this.onDialogHide(); // Close dialog on success
           this.fetchData();
         },
@@ -84,8 +84,8 @@ export class BookListComponent implements OnInit {
       });
     }
   }
-  editEmployee(employee: Employee): void {
-    this.selectedEmployee = { ...employee }; // Pass a copy of the selected book
+  editBook(book: Book): void {
+    this.selectedBook = { ...book }; // Pass a copy of the selected book
     this.displayDialog = true;
   }
   handleDialogClose(success: boolean): void {
